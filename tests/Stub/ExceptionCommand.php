@@ -11,8 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class ExceptionCommand extends BaseCommand
 {
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
-        throw new RuntimeException('Console exception test.');
+        return 0;
     }
 }
