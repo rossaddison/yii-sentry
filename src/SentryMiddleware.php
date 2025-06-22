@@ -20,7 +20,8 @@ final class SentryMiddleware implements MiddlewareInterface
     public function __construct(private HubInterface $hub)
     {
     }
-
+    
+    #[\Override]
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         try {
