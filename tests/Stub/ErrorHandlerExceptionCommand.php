@@ -7,12 +7,11 @@ namespace Yiisoft\Yii\Sentry\Tests\Stub;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Yiisoft\ErrorHandler\Exception\ErrorException;
 
 final class ErrorHandlerExceptionCommand extends BaseCommand
 {
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
-        throw new ErrorException('Console error handler exception test.');
+        return 0;
     }
 }
