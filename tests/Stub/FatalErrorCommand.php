@@ -10,8 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class FatalErrorCommand extends BaseCommand
 {
-    public function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        return 0;
+        /**
+         * Note: E_USER_ERROR has been deprecated in terms of php 8.4
+         */
+        throw new \RuntimeException('Console fatal error test.');
     }
 }

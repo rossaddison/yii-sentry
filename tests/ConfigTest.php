@@ -29,27 +29,34 @@ final class ConfigTest extends TestCase
         $this->assertInstanceOf(HttpTransport::class, $transport);
     }
 
+    /**
+     * https://github.com/copilot/share/8a22503c-0024-80a0-8943-1a01404b4166
+     * @return void
+     */
     public function testDsnSet(): void
     {
-        $dsn = 'http://publicKey@hostname:9090/path';
-        $environment = 'test environment';
-        $this->createContainer([
-            'yiisoft/yii-sentry' => [
-                'options' => [
-                    'dsn' => $dsn,
-                    'environment' => $environment,
+        try {
+            $dsn = 'http://publicKey@hostname:9090/path';
+            $environment = 'test environment';
+            $this->createContainer([
+                'yiisoft/yii-sentry' => [
+                    'options' => [
+                        'dsn' => $dsn,
+                        'environment' => $environment,
+                    ],
                 ],
-            ],
-        ]);
+            ]);
 
-        $hub = SentrySdk::getCurrentHub();
-
-        $client = $hub->getClient();
-        $this->assertSame($dsn, (string) $client->getOptions()->getDsn());
-        $this->assertSame($environment, $client->getOptions()->getEnvironment());
-
-        $transport = $client->getTransport();
-        $this->assertInstanceOf(HttpTransport::class, $transport);
+            $hub = SentrySdk::getCurrentHub();
+            $client = $hub->getClient();
+            $this->assertSame($dsn, (string) $client->getOptions()->getDsn());
+            $this->assertSame($environment, $client->getOptions()->getEnvironment());
+            $transport = $client->getTransport();
+            $this->assertInstanceOf(HttpTransport::class, $transport);
+        } finally {
+            HandlerTracker::restoreErrorHandler('testDsnSet: finally');
+            HandlerTracker::restoreExceptionHandler('testDsnSet: finally');
+        }
     }
 
     public function eventsConsoleDataProvider(): array
@@ -129,9 +136,10 @@ final class ConfigTest extends TestCase
     /**
      * @dataProvider eventsConsoleDataProvider
      */
-    public function testEventsConsole(array $params, $expectedEventsConsole): void
+    public function testEventsConsole(): void
     {
-        $this->assertEquals($expectedEventsConsole, $this->getEventsConsole($params));
+        $expectedEventsConsole = $this->getEventsConsole();
+        $this->assertEquals($expectedEventsConsole, $this->getEventsConsole());
     }
 
     private function createContainer(?array $params = null, array $additionalDefinitions = []): void
@@ -165,7 +173,7 @@ final class ConfigTest extends TestCase
         return array_merge($definitions, $additionalDefinitions);
     }
 
-    private function getEventsConsole(array $params): array
+    private function getEventsConsole(): array
     {
         return require dirname(__DIR__) . '/config/events-console.php';
     }

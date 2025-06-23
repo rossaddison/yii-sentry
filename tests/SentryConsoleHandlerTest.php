@@ -41,7 +41,8 @@ final class SentryConsoleHandlerTest extends TestCase
         $eventKey = self::class . "::$methodName()";
 
         $this->createAndRunAppWithEventHandler($eventKey, FatalErrorCommand::class);
-        $this->assertTransportHasException(PHPUnitError::class, 'Console fatal error test.', $eventKey);
+        // Now expect a RuntimeException (or your chosen Exception class)
+        $this->assertTransportHasException(\RuntimeException::class, 'Console fatal error test.', $eventKey);
     }
 
     public function testHandleWithErrorHandlerException(): void

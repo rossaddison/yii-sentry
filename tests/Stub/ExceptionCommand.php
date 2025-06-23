@@ -13,6 +13,6 @@ final class ExceptionCommand extends BaseCommand
 {
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        return 0;
+        throw new RuntimeException('Console exception test.');
     }
 }
