@@ -33,7 +33,7 @@
         "psr/http-server-handler": "^1.0.2",
         "psr/http-server-middleware": "^1.0.2",
         "sentry/sentry": "^4.14.1",
-        "symfony/console": "^7.3",
+        "symfony/console": "^7.3.1",
         "yiisoft/di": "^1.4"
     },
     "require-dev": {
@@ -41,8 +41,8 @@
         "httpsoft/http-message": "^1.1.6",
         "maglnet/composer-require-checker": "^4.16.1",
         "php-http/guzzle7-adapter": "^1.1",
-        "phpunit/phpunit": "^12.2.3", 
-        "rector/rector": "^2.0.18",
+        "phpunit/phpunit": "^12.2.5", 
+        "rector/rector": "^2.1.0",
         "roave/infection-static-analysis-plugin": ">=1.38",
         "spatie/phpunit-watcher": ">=1.24.0",
         "vimeo/psalm": "^6.12.0",
